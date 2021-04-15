@@ -1,1 +1,1 @@
-web: ./myussd
+web: ./bin/myussd
