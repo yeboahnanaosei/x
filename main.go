@@ -4,11 +4,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 	http.HandleFunc("/", index)
-	log.Fatal(http.ListenAndServe(":5000", nil))
+	var port string
+	if port = os.Getenv("PORT"); port == "" {
+		port = "5000"
+	}
+
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -22,5 +28,5 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 	userName := r.FormValue("ProfileName")
 	userPhone := r.FormValue("WaId")
-	w.Write([]byte("Hi, "+userName+"! Welcome to RTS Solutions. "+ userPhone))
+	w.Write([]byte("Hi, " + userName + "! Welcome to RTS Solutions. " + userPhone))
 }
